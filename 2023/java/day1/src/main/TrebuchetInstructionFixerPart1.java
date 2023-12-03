@@ -37,14 +37,10 @@ public class TrebuchetInstructionFixerPart1 {
 
 
     public char checkIfCharIsANumber(char currentChar) {
-        if (isCharANumber(currentChar)) {
+        if (Character.isDigit(currentChar)) {
             return currentChar;
         }
 
         return '0';
-    }
-
-    boolean isCharANumber(char character) {
-        return character >= 49 && character <= 57;
     }
 }

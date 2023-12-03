@@ -9,9 +9,11 @@ public class TrebuchetInstructionFixerPart2 {
         int answer = 0;
         for (String line : lines) {
             String numbers = "";
+            //from 0 till the end of string
             char firstOccurredCharacter = traverseLine(0, line, x -> x + 1);
             numbers += String.valueOf(firstOccurredCharacter);
 
+            //from end of the string to 0
             char lastOccurredCharacter = traverseLine(line.length() - 1, line, x -> x - 1);
             numbers += String.valueOf(lastOccurredCharacter);
 
@@ -35,7 +37,7 @@ public class TrebuchetInstructionFixerPart2 {
 
     private char checkIfIndexContainsANumber(int index, String  line) {
         char currentChar = line.charAt(index);
-        if (trebuchetInstructionFixerPart1.isCharANumber(currentChar)) {
+        if (Character.isDigit(currentChar)) {
             return currentChar;
         }
 
