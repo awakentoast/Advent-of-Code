@@ -4,7 +4,6 @@ import java.util.function.IntUnaryOperator;
 
 public class TrebuchetInstructionFixerPart2 {
 
-    TrebuchetInstructionFixerPart1 trebuchetInstructionFixerPart1 = new TrebuchetInstructionFixerPart1();
     int solve(String[] lines) {
         int answer = 0;
         for (String line : lines) {
@@ -27,7 +26,6 @@ public class TrebuchetInstructionFixerPart2 {
         int index = startIndex;
         char character;
         do {
-            char charInString = line.charAt(index);
             character = checkIfIndexContainsANumber(index, line);
             index = operator.applyAsInt(index);
         } while (character == '0');
