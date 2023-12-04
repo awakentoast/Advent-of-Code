@@ -33,7 +33,7 @@ public class GearRatios {
 
     private static String readFile() {
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line).append("%n");

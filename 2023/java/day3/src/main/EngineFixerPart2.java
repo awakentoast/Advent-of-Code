@@ -64,7 +64,7 @@ public class EngineFixerPart2 {
         int index = 0;
         for (List<int[]> coordinatesOfPartNumber : coordinatesOfAllPartNumbers) {
             for (int[] coordinatesOfPartNumberDigit : coordinatesOfPartNumber) {
-                if (part1.checkNeighbours(coordinatesOfPartNumberDigit, arrayLength, lineLength, neighbor -> isNeighborADigit(new int[]{gearX, gearY}, neighbor[0], neighbor[1]))) {
+                if (part1.checkNeighbours(coordinatesOfPartNumberDigit, arrayLength, lineLength, neighbor -> isNeighborAPartNumberDigit(new int[]{gearX, gearY}, neighbor[0], neighbor[1]))) {
                     adjacentPartNumbers.add(charactersOfAllPartNumbers.get(index));
                     break;
                 }
@@ -75,7 +75,7 @@ public class EngineFixerPart2 {
         return adjacentPartNumbers;
     }
 
-    public boolean isNeighborADigit(int[] coords, int x, int y) {
+    public boolean isNeighborAPartNumberDigit(int[] coords, int x, int y) {
         return (coords[0] == x && coords[1] == y);
     }
 }
