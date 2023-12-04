@@ -45,7 +45,7 @@ public class EngineFixerPart2 {
         for (int y = 0; y < arrayLength; y++) {
             for (x = 0; x < lineLength; x++) {
                 if (array[y][x] == '*') {
-                    List<List<Character>> adjacentPartNumbers = isAdjacentToThesePartNumbers(x, y, coordinatesOfAllPartNumbers, charactersOfAllPartNumbers, lineLength, arrayLength);
+                    List<List<Character>> adjacentPartNumbers = gearIsAdjacentToThesePartNumbers(x, y, coordinatesOfAllPartNumbers, charactersOfAllPartNumbers, lineLength, arrayLength);
                     if (adjacentPartNumbers.size() == 2) {
                         int tempAnswer = part1.characterListToValue(adjacentPartNumbers.get(0));
                         tempAnswer *= part1.characterListToValue(adjacentPartNumbers.get(1));
@@ -59,7 +59,7 @@ public class EngineFixerPart2 {
         return answer;
     }
 
-    private List<List<Character>> isAdjacentToThesePartNumbers(int gearX, int gearY, List<List<int[]>> coordinatesOfAllPartNumbers, List<List<Character>> charactersOfAllPartNumbers, int lineLength, int arrayLength) {
+    private List<List<Character>> gearIsAdjacentToThesePartNumbers(int gearX, int gearY, List<List<int[]>> coordinatesOfAllPartNumbers, List<List<Character>> charactersOfAllPartNumbers, int lineLength, int arrayLength) {
         List<List<Character>> adjacentPartNumbers = new ArrayList<>();
         int index = 0;
         for (List<int[]> coordinatesOfPartNumber : coordinatesOfAllPartNumbers) {
