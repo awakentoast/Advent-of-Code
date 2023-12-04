@@ -77,7 +77,7 @@ public class EngineFixerPart1 {
 
 
 
-    public boolean checkNeighbours(int[] coordinates, int arrayLength, int lineLength, Predicate<int[]> function) {
+    public boolean checkNeighbours(int[] coordinates, int arrayLength, int lineLength, Predicate<int[]> predicate) {
         int[] directionsX = {1, 1, 1, 0, -1, -1, -1, 0};
         int[] directionsY = {-1, 0, 1, 1, 1, 0, -1, -1};
 
@@ -89,7 +89,7 @@ public class EngineFixerPart1 {
             y = coordinates[1] + directionsY[i];
 
             if (isInBound(x, y, arrayLength, lineLength)) {
-                if (function.test(new int[]{x,y})) {
+                if (predicate.test(new int[]{x,y})) {
                     return true;
                 }
             }
