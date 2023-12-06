@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,6 +18,21 @@ public class Scratchcards {
         CardWinnerPart2 cardWinnerPart2 = new CardWinnerPart2();
         int part2 = cardWinnerPart2.solve(cards);
         System.out.println("Part 2: " + part2);
+    }
+
+    private static String readInput() {
+        StringBuilder sb = new StringBuilder();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("%n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
     }
 
     private static List<Card> parseInput(String input) {
@@ -46,20 +60,5 @@ public class Scratchcards {
         }
 
         return cards;
-    }
-
-    private static String readInput() {
-        StringBuilder sb = new StringBuilder();
-
-        try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("%n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return sb.toString();
     }
 }

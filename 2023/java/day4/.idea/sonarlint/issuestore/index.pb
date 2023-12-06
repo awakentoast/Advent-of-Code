@@ -1,6 +1,4 @@
 
-=
-src/Main.java,9\2\924f089edb4af5ee45c8a9d1129cd28e2b368138
 9
 	input.txt,4\3\43128ead2f5bfaabf1ba2cb52e86d461e0117c1a
 E
