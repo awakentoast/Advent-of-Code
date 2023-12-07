@@ -4,29 +4,27 @@ import java.util.*;
 
 public class SeedSolverPart1 {
 
-    long max = 0;
     public long solve(List<List<List<Long>>> maps) {
-        long lowest = 999_999_999_999_999L;
+        long lowestAnswer = 999_999_999_999_999L;
 
         List<Long> seeds = maps.get(0).get(0);
         int count = 0;
         for (long seed : seeds) {
             System.out.println("Seed: " + seed + ", Count: " + count++);
             int theSameThreshold = calculateLowestAmountOfTheSame(seed, maps);
-            List<Long> goodValues = getAllValuesWithTheSame(seed, maps, theSameThreshold);
-
-            for (Long goodValue : goodValues) {
-                if (goodValue < lowest) {
-                    lowest = goodValue;
-                }
+            System.out.println(theSameThreshold);
+            long lowestValidLocation = getLowestLocationForThreshold(seed, maps, theSameThreshold);
+            System.out.println(lowestValidLocation);
+            System.out.println();
+            if (lowestValidLocation < lowestAnswer) {
+                lowestAnswer = lowestValidLocation;
             }
-            System.out.println("Current lowest: " + lowest);
         }
 
-        return lowest;
+        return lowestAnswer;
     }
 
-    private List<Long> getAllValuesWithTheSame(long seed, List<List<List<Long>>> maps, int theSameThreshold) {
+    private long getLowestLocationForThreshold(long seed, List<List<List<Long>>> maps, int theSameThreshold) {
         System.out.println("starting getting all values that are less than " + theSameThreshold);
         List<List<Long>> seedToSoils = maps.get(1);
         List<List<Long>> soilToFerts = maps.get(2);
@@ -36,52 +34,62 @@ public class SeedSolverPart1 {
         List<List<Long>> tempToHums = maps.get(6);
         List<List<Long>> humToLocs = maps.get(7);
 
-        List<Long> allLocations = new LinkedList<>();
+        long soil;
+        long fert;
+        long water;
+        long light;
+        long temp;
+        long hum;
+        long location;
+
+        int soilTheSame;
+        int fertTheSame;
+        int waterTheSame;
+        int lightTheSame;
+        int tempTheSame;
+        int humTheSame;
+        int locationTheSame;
+
+        long lowestValidLocation = 9_999_999_999L;
 
         for (List<Long> seedToSoil : seedToSoils) {
+            soil = getValueFromRange(seed, seedToSoil);
+            soilTheSame = seed == soil ? 1 : 0;
+
             for (List<Long> soilToFert : soilToFerts) {
+                fert = getValueFromRange(soil, soilToFert);
+                fertTheSame = soil == fert ? 1 : 0;
+                fertTheSame += soilTheSame;
+
                 for (List<Long> fertToWater : fertToWaters) {
+                    water = getValueFromRange(fert, fertToWater);
+                    waterTheSame = fert == water ? 1 : 0;
+                    waterTheSame += fertTheSame;
+
                     for (List<Long> waterToLight : waterToLights) {
+                        light = getValueFromRange(water, waterToLight);
+                        lightTheSame = water == light ? 1 : 0;
+                        lightTheSame += waterTheSame;
+
                         for (List<Long> lightToTemp : lightToTemps) {
+                            temp = getValueFromRange(light, lightToTemp);
+                            tempTheSame = light == temp ? 1 : 0;
+                            tempTheSame += lightTheSame;
+
                             for (List<Long> tempToHum : tempToHums) {
+                                hum = getValueFromRange(temp, tempToHum);
+                                humTheSame = temp == hum ? 1 : 0;
+                                humTheSame += tempTheSame;
+
                                 for (List<Long> humToLoc : humToLocs) {
-                                    int theSame = 0;
-                                    long soil = getValueFromRange(seed, seedToSoil);
-                                    if (isSame(seed, soil)) {
-                                        theSame++;
-                                    }
-                                    long fert = getValueFromRange(soil, soilToFert);
-                                    if (isSame(soil, fert)) {
-                                        theSame++;
-                                    }
+                                    location = getValueFromRange(hum, humToLoc);
+                                    locationTheSame = hum == location ? 1 : 0;
+                                    locationTheSame += humTheSame;
 
-                                    long water = getValueFromRange(fert, fertToWater);
-                                    if (isSame(fert, water)) {
-                                        theSame++;
-                                    }
-
-                                    long light = getValueFromRange(water, waterToLight);
-                                    if (isSame(water, light)) {
-                                        theSame++;
-                                    }
-
-                                    long temp = getValueFromRange(light, lightToTemp);
-                                    if (isSame(light, temp)) {
-                                        theSame++;
-                                    }
-
-                                    long hum = getValueFromRange(temp, tempToHum);
-                                    if (isSame(temp, hum)) {
-                                        theSame++;
-                                    }
-
-                                    long location = getValueFromRange(hum, humToLoc);
-                                    if (isSame(hum, location)) {
-                                        theSame++;
-                                    }
-
-                                    if (theSame == theSameThreshold) {
-                                        allLocations.add(location);
+                                    if (locationTheSame == theSameThreshold) {
+                                        if (location < lowestValidLocation) {
+                                            lowestValidLocation = location;
+                                        }
                                     }
                                 }
                             }
@@ -91,7 +99,7 @@ public class SeedSolverPart1 {
             }
         }
 
-        return allLocations;
+        return lowestValidLocation;
     }
 
 
@@ -106,51 +114,60 @@ public class SeedSolverPart1 {
         List<List<Long>> humToLocs = maps.get(7);
 
 
+        long soil;
+        long fert;
+        long water;
+        long light;
+        long temp;
+        long hum;
+        long location;
+
+        int soilTheSame;
+        int fertTheSame;
+        int waterTheSame;
+        int lightTheSame;
+        int tempTheSame;
+        int humTheSame;
+        int locationTheSame;
+
         int leastTheSame = 99;
+
         for (List<Long> seedToSoil : seedToSoils) {
+            soil = getValueFromRange(seed, seedToSoil);
+            soilTheSame = seed == soil ? 1 : 0;
+
             for (List<Long> soilToFert : soilToFerts) {
+                fert = getValueFromRange(soil, soilToFert);
+                fertTheSame = soil == fert ? 1 : 0;
+                fertTheSame += soilTheSame;
+
                 for (List<Long> fertToWater : fertToWaters) {
+                    water = getValueFromRange(fert, fertToWater);
+                    waterTheSame = fert == water ? 1 : 0;
+                    waterTheSame += fertTheSame;
+
                     for (List<Long> waterToLight : waterToLights) {
+                        light = getValueFromRange(water, waterToLight);
+                        lightTheSame = water == light ? 1 : 0;
+                        lightTheSame += waterTheSame;
+
                         for (List<Long> lightToTemp : lightToTemps) {
+                            temp = getValueFromRange(light, lightToTemp);
+                            tempTheSame = light == temp ? 1 : 0;
+                            tempTheSame += lightTheSame;
+
                             for (List<Long> tempToHum : tempToHums) {
+                                hum = getValueFromRange(temp, tempToHum);
+                                humTheSame = temp == hum ? 1 : 0;
+                                humTheSame += tempTheSame;
+
                                 for (List<Long> humToLoc : humToLocs) {
-                                    int theSame = 0;
-                                    long soil = getValueFromRange(seed, seedToSoil);
-                                    if (isSame(seed, soil)) {
-                                        theSame++;
-                                    }
-                                    long fert = getValueFromRange(soil, soilToFert);
-                                    if (isSame(soil, fert)) {
-                                        theSame++;
-                                    }
+                                    location = getValueFromRange(hum, humToLoc);
+                                    locationTheSame = hum == location ? 1 : 0;
+                                    locationTheSame += humTheSame;
 
-                                    long water = getValueFromRange(fert, fertToWater);
-                                    if (isSame(fert, water)) {
-                                        theSame++;
-                                    }
-
-                                    long light = getValueFromRange(water, waterToLight);
-                                    if (isSame(water, light)) {
-                                        theSame++;
-                                    }
-
-                                    long temp = getValueFromRange(light, lightToTemp);
-                                    if (isSame(light, temp)) {
-                                        theSame++;
-                                    }
-
-                                    long hum = getValueFromRange(temp, tempToHum);
-                                    if (isSame(temp, hum)) {
-                                        theSame++;
-                                    }
-
-                                    long location = getValueFromRange(hum, humToLoc);
-                                    if (isSame(hum, location)) {
-                                        theSame++;
-                                    }
-
-                                    if (theSame < leastTheSame) {
-                                        leastTheSame = theSame;
+                                    if (locationTheSame <= leastTheSame) {
+                                        leastTheSame = locationTheSame;
                                     }
                                 }
                             }
@@ -163,20 +180,12 @@ public class SeedSolverPart1 {
         return leastTheSame;
     }
 
-    public boolean isSame(long a, long b) {
-        return a == b;
-    }
-
 
     public long getValueFromRange(long value, List<Long> values) {
-        long destinationStart = values.get(0);
         long sourceStart = values.get(1);
-        long range = values.get(2);
-
-        if (value >= sourceStart && value <= sourceStart + range) {
-            return value + (destinationStart - sourceStart);
+        if (value >= sourceStart && value <= sourceStart + values.get(2)) {
+            return value + (values.get(0) - sourceStart);
         }
-
         return value;
     }
 }
