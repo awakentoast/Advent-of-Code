@@ -1,7 +1,12 @@
 
-o
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(—ù‡8ˆ™›²Ä1
-o
-java:S3776j"RRefactor this method to reduce its Cognitive Complexity from 71 to the 15 allowed.(Ëæ÷À8™›²Ä1
-ã
-java:S6541"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 65 to 64, Complexity from 17 to 14, Nesting Level from 9 to 2, Number of Variables from 32 to 6.(—ù‡8•™›²Ä1
+E
+java:S1659
+"#Declare "count" on a separate line.(›åçÉùÿÿÿÿ8ªÚ€ßÄ1
+t
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(–¿©‘ùÿÿÿÿ8ˆØïŞÄ1
+t
+java:S3776i"RRefactor this method to reduce its Cognitive Complexity from 71 to the 15 allowed.(ØÇ¯óüÿÿÿÿ8ØïŞÄ1
+C
+java:S1128"&Remove this unused import 'java.util'.(Î€ŒÙ8ÃÎôŞÄ1
+è
+java:S6541"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 65 to 64, Complexity from 17 to 14, Nesting Level from 9 to 2, Number of Variables from 32 to 6.(–¿©‘ùÿÿÿÿ8’ØïŞÄ1

@@ -4,11 +4,10 @@ import java.util.*;
 
 public class SeedSolverPart1 {
 
-    public long solve(List<List<List<Long>>> maps) {
+    public long solve(long[][][] maps) {
         long lowestAnswer = 999_999_999_999_999L;
 
-        List<Long> seeds = maps.get(0).get(0);
-        int count = 0;
+        long[] seeds = maps[0][0];int count = 0;
         for (long seed : seeds) {
             System.out.println("Seed: " + seed + ", Count: " + count++);
             int theSameThreshold = calculateLowestAmountOfTheSame(seed, maps);
@@ -24,15 +23,15 @@ public class SeedSolverPart1 {
         return lowestAnswer;
     }
 
-    private long getLowestLocationForThreshold(long seed, List<List<List<Long>>> maps, int theSameThreshold) {
+    private long getLowestLocationForThreshold(long seed, long[][][] maps, int theSameThreshold) {
         System.out.println("starting getting all values that are less than " + theSameThreshold);
-        List<List<Long>> seedToSoils = maps.get(1);
-        List<List<Long>> soilToFerts = maps.get(2);
-        List<List<Long>> fertToWaters = maps.get(3);
-        List<List<Long>> waterToLights = maps.get(4);
-        List<List<Long>> lightToTemps = maps.get(5);
-        List<List<Long>> tempToHums = maps.get(6);
-        List<List<Long>> humToLocs = maps.get(7);
+        long[][] seedToSoils = maps[1];
+        long[][] soilToFerts = maps[2];
+        long[][] fertToWaters = maps[3];
+        long[][] waterToLights = maps[4];
+        long[][] lightToTemps = maps[5];
+        long[][] tempToHums = maps[6];
+        long[][] humToLocs = maps[7];
 
         long soil;
         long fert;
@@ -52,36 +51,36 @@ public class SeedSolverPart1 {
 
         long lowestValidLocation = 9_999_999_999L;
 
-        for (List<Long> seedToSoil : seedToSoils) {
+        for (long[] seedToSoil : seedToSoils) {
             soil = getValueFromRange(seed, seedToSoil);
             soilTheSame = seed == soil ? 1 : 0;
 
-            for (List<Long> soilToFert : soilToFerts) {
+            for (long[] soilToFert : soilToFerts) {
                 fert = getValueFromRange(soil, soilToFert);
                 fertTheSame = soil == fert ? 1 : 0;
                 fertTheSame += soilTheSame;
 
-                for (List<Long> fertToWater : fertToWaters) {
+                for (long[] fertToWater : fertToWaters) {
                     water = getValueFromRange(fert, fertToWater);
                     waterTheSame = fert == water ? 1 : 0;
                     waterTheSame += fertTheSame;
 
-                    for (List<Long> waterToLight : waterToLights) {
+                    for (long[] waterToLight : waterToLights) {
                         light = getValueFromRange(water, waterToLight);
                         lightTheSame = water == light ? 1 : 0;
                         lightTheSame += waterTheSame;
 
-                        for (List<Long> lightToTemp : lightToTemps) {
+                        for (long[] lightToTemp : lightToTemps) {
                             temp = getValueFromRange(light, lightToTemp);
                             tempTheSame = light == temp ? 1 : 0;
                             tempTheSame += lightTheSame;
 
-                            for (List<Long> tempToHum : tempToHums) {
+                            for (long[] tempToHum : tempToHums) {
                                 hum = getValueFromRange(temp, tempToHum);
                                 humTheSame = temp == hum ? 1 : 0;
                                 humTheSame += tempTheSame;
 
-                                for (List<Long> humToLoc : humToLocs) {
+                                for (long[] humToLoc : humToLocs) {
                                     location = getValueFromRange(hum, humToLoc);
                                     locationTheSame = hum == location ? 1 : 0;
                                     locationTheSame += humTheSame;
@@ -103,16 +102,15 @@ public class SeedSolverPart1 {
     }
 
 
-    private int calculateLowestAmountOfTheSame(long seed, List<List<List<Long>>> maps) {
+    private int calculateLowestAmountOfTheSame(long seed, long[][][] maps) {
         System.out.println("starting with calculating the least amount of the same values is possible");
-        List<List<Long>> seedToSoils = maps.get(1);
-        List<List<Long>> soilToFerts = maps.get(2);
-        List<List<Long>> fertToWaters = maps.get(3);
-        List<List<Long>> waterToLights = maps.get(4);
-        List<List<Long>> lightToTemps = maps.get(5);
-        List<List<Long>> tempToHums = maps.get(6);
-        List<List<Long>> humToLocs = maps.get(7);
-
+        long[][] seedToSoils = maps[1];
+        long[][] soilToFerts = maps[2];
+        long[][] fertToWaters = maps[3];
+        long[][] waterToLights = maps[4];
+        long[][] lightToTemps = maps[5];
+        long[][] tempToHums = maps[6];
+        long[][] humToLocs = maps[7];
 
         long soil;
         long fert;
@@ -132,36 +130,36 @@ public class SeedSolverPart1 {
 
         int leastTheSame = 99;
 
-        for (List<Long> seedToSoil : seedToSoils) {
+        for (long[] seedToSoil : seedToSoils) {
             soil = getValueFromRange(seed, seedToSoil);
             soilTheSame = seed == soil ? 1 : 0;
 
-            for (List<Long> soilToFert : soilToFerts) {
+            for (long[] soilToFert : soilToFerts) {
                 fert = getValueFromRange(soil, soilToFert);
                 fertTheSame = soil == fert ? 1 : 0;
                 fertTheSame += soilTheSame;
 
-                for (List<Long> fertToWater : fertToWaters) {
+                for (long[] fertToWater : fertToWaters) {
                     water = getValueFromRange(fert, fertToWater);
                     waterTheSame = fert == water ? 1 : 0;
                     waterTheSame += fertTheSame;
 
-                    for (List<Long> waterToLight : waterToLights) {
+                    for (long[] waterToLight : waterToLights) {
                         light = getValueFromRange(water, waterToLight);
                         lightTheSame = water == light ? 1 : 0;
                         lightTheSame += waterTheSame;
 
-                        for (List<Long> lightToTemp : lightToTemps) {
+                        for (long[] lightToTemp : lightToTemps) {
                             temp = getValueFromRange(light, lightToTemp);
                             tempTheSame = light == temp ? 1 : 0;
                             tempTheSame += lightTheSame;
 
-                            for (List<Long> tempToHum : tempToHums) {
+                            for (long[] tempToHum : tempToHums) {
                                 hum = getValueFromRange(temp, tempToHum);
                                 humTheSame = temp == hum ? 1 : 0;
                                 humTheSame += tempTheSame;
 
-                                for (List<Long> humToLoc : humToLocs) {
+                                for (long[] humToLoc : humToLocs) {
                                     location = getValueFromRange(hum, humToLoc);
                                     locationTheSame = hum == location ? 1 : 0;
                                     locationTheSame += humTheSame;
@@ -181,10 +179,10 @@ public class SeedSolverPart1 {
     }
 
 
-    public long getValueFromRange(long value, List<Long> values) {
-        long sourceStart = values.get(1);
-        if (value >= sourceStart && value <= sourceStart + values.get(2)) {
-            return value + (values.get(0) - sourceStart);
+    public long getValueFromRange(long value, long[] values) {
+        long sourceStart = values[1];
+        if (value >= sourceStart && value <= sourceStart + values[2]) {
+            return value + (values[0] - sourceStart);
         }
         return value;
     }

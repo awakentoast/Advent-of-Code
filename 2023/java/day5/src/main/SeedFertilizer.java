@@ -10,7 +10,7 @@ import java.util.List;
 public class SeedFertilizer {
     public static void main(String[] args) {
         String input = readInput();
-        List<List<List<Long>>> maps = parseInput(input);
+        long[][][] maps = parseInput(input);
 
         long start = System.currentTimeMillis();
         SeedSolverPart1 seedSolverPart1 = new SeedSolverPart1();
@@ -36,21 +36,21 @@ public class SeedFertilizer {
         return sb.toString();
     }
 
-    private static List<List<List<Long>>> parseInput(String input) {
+    private static long[][][] parseInput(String input) {
         String[] inputs = input.split("%n%n");
-        List<List<List<Long>>> maps = new ArrayList<>();
+        long[][][] maps = new long[inputs.length][][];
 
-        List<Long> seeds = Arrays.stream(inputs[0].split(": ")[1].split(" ")).mapToLong(Long::parseLong).boxed().toList();
-        maps.add(List.of(seeds));
+        long[][] seeds = new long[][]{Arrays.stream(inputs[0].split(": ")[1].split(" ")).mapToLong(Long::parseLong).toArray()};
+        maps[0] = seeds;
 
         for (int i = 1; i < inputs.length; i++) {
-            List<List<Long>> list = new ArrayList<>();
             String[] lines = inputs[i].split("%n");
+            long[][] list = new long[lines.length - 1][];
 
             for (int j = 1; j < lines.length; j++) {
-                list.add(Arrays.stream(lines[j].split(" ")).mapToLong(Long::parseLong).boxed().toList());
+                list[j - 1] = Arrays.stream(lines[j].split(" ")).mapToLong(Long::parseLong).toArray();
             }
-            maps.add(list);
+            maps[i] = list;
         }
         return maps;
     }
